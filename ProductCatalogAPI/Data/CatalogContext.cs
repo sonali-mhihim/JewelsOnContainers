@@ -63,8 +63,6 @@ namespace ProductCatalogAPI.Data
                 .WithMany()
                 .HasForeignKey(c => c.CatalogBrandId);
 
-
-
             });
         }
     }
