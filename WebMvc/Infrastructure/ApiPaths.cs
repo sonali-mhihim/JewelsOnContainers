@@ -28,6 +28,11 @@ namespace WebMvc.NewFolder
                 }
                 return $"{baseUri}items{filterQs}?pageIndex={page}&pageSize={take}";
             }
+
+            internal static void GetAllCatalogtems(string baseUrl, int page, int size, int? brand, int? type)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
