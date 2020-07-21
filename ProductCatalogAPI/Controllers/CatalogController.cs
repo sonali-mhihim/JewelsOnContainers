@@ -69,37 +69,47 @@ namespace ProductCatalogAPI.Controllers
             var brands = await _context.CatalogBrands.ToListAsync();
             return Ok(brands);
         }
-        [HttpGet("[action]/type/{catalogTypeId}/brand/{ catalogBrandId}")]
+
+        [HttpGet("[action]/type/{catalogTypeId}/brand/{catalogBrandId}")]
         public async Task<IActionResult> Items(
             int? catalogTypeId,
             int? catalogBrandId,
            [FromQuery] int pageIndex = 0,
            [FromQuery] int pageSize = 6)
         {
-            var query = (IQueryable<CatalogItem>)_context.CatalogItems;
-            if (catalogTypeId.HasValue)
-            {
-                query = query.Where(c => c.CatalogTypeId == catalogTypeId);
-            }
-            if (catalogBrandId.HasValue)
-            {
-                query = query.Where(c => c.CatalogBrandId == catalogBrandId);
-            }
-            var itemsCount = query.LongCountAsync();
+            //var query = (IQueryable<CatalogItem>)_context.CatalogItems;
+            //if (catalogTypeId.HasValue)
+            //{
+            //    query = query.Where(c => c.CatalogTypeId == catalogTypeId);
+            //}
+            //if (catalogBrandId.HasValue)
+            //{
+            //    query = query.Where(c => c.CatalogBrandId == catalogBrandId);
+            //}
+            //var itemsCount = query.LongCountAsync();
 
-            var items = await query
-                  .OrderBy(c => c.Name)
+            //var items = await query
+            //      .OrderBy(c => c.Name)
+            //      .Skip(pageIndex * pageSize)
+            //      .Take(pageSize)
+            //      .ToListAsync();
+            var items = _context.CatalogItems
+                .Where(c=> c.CatalogBrandId == catalogBrandId)
+                .Where(c => c.CatalogTypeId == catalogTypeId)
+                .OrderBy(c => c.Name)
                   .Skip(pageIndex * pageSize)
                   .Take(pageSize)
-                  .ToListAsync();
+                  .ToList();
+            var itemsCount = items.Count;
             items = ChangePictureUrl(items);
             var model = new PaginatedItemsViewModel<CatalogItem>
             {
                 PageIndex = pageIndex,
                 PageSize = items.Count,
-                Count = itemsCount.Result,
+                Count = itemsCount,
                 Data = items,
             };
+
             return Ok(model);
 
         }

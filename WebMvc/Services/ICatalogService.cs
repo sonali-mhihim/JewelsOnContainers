@@ -12,6 +12,5 @@ namespace WebMvc.Services
         Task<Catalog> GetCatalogItemsAsync(int page, int size, int? brand, int? type);
         Task<IEnumerable<SelectListItem>> GetBrandsAsync();
         Task<IEnumerable<SelectListItem>> GetTypesAsync();
-
     }
 }
