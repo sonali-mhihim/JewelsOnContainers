@@ -31,6 +31,8 @@ services:
       dockerfile: Dockerfile
     environment:
       CatalogUrl: http://catalog
+      IdentityUrl: http://192.168.86.121:6700
+      CallBackUrl: http://localhost:6812
     ports:
       - "6812:80"
     container_name: jewelswebmvc
@@ -38,6 +40,23 @@ services:
       - frontend
     depends_on:
       - catalog
+
+  tokenserver:
+    build:
+      context: .\TokenServiceApi
+      dockerfile: Dockerfile
+    image: jewels/tokenapi
+    environment:
+      Mvcclient: http://localhost:6812
+    ports:
+      - "6700:80"
+    container_name: tokenserviceapi
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - mssqlserver
+
 
 
   mssqlserver:
