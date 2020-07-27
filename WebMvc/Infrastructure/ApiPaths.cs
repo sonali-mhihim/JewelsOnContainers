@@ -29,28 +29,24 @@ namespace WebMvc.NewFolder
                 return $"{baseUri}items{filterQs}?pageIndex={page}&pageSize={take}";
             }
 
-            internal static void GetAllCatalogtems(string baseUrl, int page, int size, int? brand, int? type)
+            public static class Basket
             {
-                throw new NotImplementedException();
+               public static string GetBasket(string baseUri, string basketId)
+               {
+                    return $"{baseUri}/{basketId}";
+               }
+
+               public static string UpdateBasket(string baseUri)
+               {
+                    return baseUri;
+               }
+
+               public static string CleanBasket(string baseUri, string basketId)
+               {
+                    return $"{baseUri}/{basketId}";
+               }
             }
         }
     }
 
-    public static class Basket
-    {
-        public static string GetBasket(string baseUri, string basketId)
-        {
-            return $"{baseUri}/{basketId}";
-        }
-
-        public static string UpdateBasket(string baseUri)
-        {
-            return baseUri;
-        }
-
-        public static string CleanBasket(string baseUri, string basketId)
-        {
-            return $"{baseUri}/{basketId}";
-        }
-    }
-    }
+}
