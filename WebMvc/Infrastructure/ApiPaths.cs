@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebMvc.NewFolder
+namespace WebMvc.Infrastructure
 {
     public static class ApiPaths
     {
@@ -28,25 +28,25 @@ namespace WebMvc.NewFolder
                 }
                 return $"{baseUri}items{filterQs}?pageIndex={page}&pageSize={take}";
             }
-
-            public static class Basket
+        }
+        public static class Basket
+        {
+            public static string GetBasket(string baseUri, string basketId)
             {
-               public static string GetBasket(string baseUri, string basketId)
-               {
-                    return $"{baseUri}/{basketId}";
-               }
+                return $"{baseUri}/{basketId}";
+            }
 
-               public static string UpdateBasket(string baseUri)
-               {
-                    return baseUri;
-               }
+            public static string UpdateBasket(string baseUri)
+            {
+                return baseUri;
+            }
 
-               public static string CleanBasket(string baseUri, string basketId)
-               {
-                    return $"{baseUri}/{basketId}";
-               }
+            public static string CleanBasket(string baseUri, string basketId)
+            {
+                return $"{baseUri}/{basketId}";
             }
         }
+
     }
 
 }

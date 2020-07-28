@@ -31,7 +31,8 @@ services:
       dockerfile: Dockerfile
     environment:
       CatalogUrl: http://catalog
-      IdentityUrl: http://192.168.86.121:6700
+      CartUrl: http://cart
+      IdentityUrl: http://192.168.86.121:6703
       CallBackUrl: http://localhost:6812
     ports:
       - "6812:80"
@@ -40,6 +41,8 @@ services:
       - frontend
     depends_on:
       - catalog
+      - cart
+      - tokenserver
 
   tokenserver:
     build:
@@ -49,7 +52,7 @@ services:
     environment:
       Mvcclient: http://localhost:6812
     ports:
-      - "6700:80"
+      - "6703:80"
     container_name: tokenserviceapi
     networks:
       - backend
@@ -62,8 +65,8 @@ services:
       context: .\CartApi
       dockerfile: Dockerfile
     image: jewels/cartapi
-    environment:
-      IdentityUrl: http://192.168.86.121:6700
+    environment: 
+      IdentityUrl: http://192.168.86.121:6703
       ConnectionString: basket.data
     ports:
       - "6814:80"

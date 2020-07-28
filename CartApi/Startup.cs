@@ -29,11 +29,11 @@ namespace CartApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddTransient<ICartRepository, RedisCartRepository>();
             services.AddSingleton<ConnectionMultiplexer>(cm =>
             {
-                var configuration = ConfigurationOptions.Parse(Configuration["ConnnectioString"], false);
+                var configuration = ConfigurationOptions.Parse(Configuration["ConnectionString"], false);
                 configuration.ResolveDns = true;
                 configuration.AbortOnConnectFail = false;
                 return ConnectionMultiplexer.Connect(configuration);

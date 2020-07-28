@@ -9,7 +9,6 @@ using System.Security.Policy;
 using System.Threading.Tasks;
 using WebMvc.Infrastructure;
 using WebMvc.Models;
-using WebMvc.NewFolder;
 
 namespace WebMvc.Services
 {
