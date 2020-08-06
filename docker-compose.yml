@@ -34,6 +34,10 @@ services:
       CartUrl: http://cart
       IdentityUrl: http://192.168.86.121:6703
       CallBackUrl: http://localhost:6812
+      OrderUrl: http://order
+      StripePublicKey: pk_test_51HD0nOKoXJmUbPfzIe8C9oKQhMLGVHNYqZBWJMA2t1jQIYt7ti2JYpwWhoDB5JwZ7o9xxgoFHZKw3VsKesAmEyDk00NiohAdBa
+      StripePrivateKey: sk_test_51HD0nOKoXJmUbPfz58AR154bpVLSeq4W5HrwiGlnJAiiXywQPbpChKxQNxCA0z4xJs32HiejoYr0agbCpNgSC1Vg000Gw5mE1U
+      ASPNETCORE_ENVIRONMENT: Development
     ports:
       - "6812:80"
     container_name: jewelswebmvc
@@ -42,6 +46,7 @@ services:
     depends_on:
       - catalog
       - cart
+      - order
       - tokenserver
 
   tokenserver:
