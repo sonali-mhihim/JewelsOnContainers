@@ -69,7 +69,7 @@ namespace WebMvc.Services
             var token = await GetUserTokenAsync();
             var cleanBasketUri = ApiPaths.Basket.CleanBasket(_remoteServiceBaseUrl, user.Id);
             _logger.LogDebug("Clean Basket uri : " + cleanBasketUri);
-            var response = await _apiClient.DeleteAsync(cleanBasketUri);
+            var response = await _apiClient.DeleteAsync(cleanBasketUri, token);
             _logger.LogDebug("Basket cleaned");
         }
 

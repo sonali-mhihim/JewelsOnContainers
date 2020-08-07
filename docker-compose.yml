@@ -82,12 +82,19 @@ services:
     depends_on:
       - tokenserver
       - basket.data
+      - rabbitmq
 
   order:
     build:
       context: .\OrderApi
       dockerfile: Dockerfile
     image: jewels/orderapi
+    logging:
+      driver: "json-file"
+      options: {
+          max-size: "200k",
+          max-file: "10"
+      }
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       IdentityUrl:  http://192.168.86.121:6703
@@ -104,6 +111,7 @@ services:
     depends_on:
       - mssqlserver
       - tokenserver
+      - rabbitmq
       
   mssqlserver:
     image: "microsoft/mssql-server-linux:latest"
@@ -121,5 +129,18 @@ services:
     container_name: basketdata
     ports:
       - "6080:6379"
+    networks:
+      - backend
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: myjewelsrabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+      - "5671:5671"
+    volumes:
+      - ~/rabbitmq:/var/lib/rabbitmq/mnesia
     networks:
       - backend
